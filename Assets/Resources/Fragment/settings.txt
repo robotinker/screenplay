@@ -1,0 +1,50 @@
+STORY SETTINGS
+player count = 1-4
+save mode = overwrite
+pause every line = true
+show story recap = true
+use speech bubbles = true
+
+GUI SETTINGS
+GUI base alpha = 0.8
+white text threshold = 1.5
+nameplate slide = false
+speaker pulse = true
+narrator bg color = white
+narrator font style = italic
+character bg color = 0.45, 0.5, 1
+game font = Arial.ttf
+type in = true
+characters per second = 30
+font = TinBird
+
+GRAPHICS
+title screen = space
+cursor = cursor
+windrose = windrose
+stat box = default_box
+name plate = speechbox_tail
+character dialogue box = shatter_box
+narrator dialogue box = shatter_box
+choice option box = shatter_box
+bad bid token = bad_bid
+dialogue progression arrow = progression arrow 1
+spinner wedge = wedge20th
+spinner hand = spinner hand 2
+auto progression wheel = resource_energy
+
+SOUNDS
+title music = main
+allocate = allocate
+unallocate = unallocate
+move cursor = move_cursor
+confirm = confirm
+cancel = cancel2
+player joining = player_joining
+player drop in = player_joined2
+player drop out = player_leaving
+switch character = swap_char
+approve dialogue progression = bubble_magic
+progress dialogue = plink_approve
+spinner tie break = spinner
+save = bubble_magic

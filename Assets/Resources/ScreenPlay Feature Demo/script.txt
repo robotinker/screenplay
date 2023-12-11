@@ -1,0 +1,692 @@
+(background: town_gate)
+(music: test_music)
+
+(Enter Ora to center stage)
+ORA
+<b>Welcome</b> to <color=yellow>ScreenPlay</color>, a multiplayer visual novel engine! Who wants to play?
+Everybody ready?
+(pause)
+(lock characters)
+
+Alright! So first, an introduction. Visual novels are like multiple choice adventure games where your choices determine what happens in the story.
+
+A number of games use this to excellent effect, but are single-player only. ScreenPlay aims to allow for multiple players to have input on the story.
+For instance, people read at different rates, so really <i>important</i> lines (like this one) can require all players to press <color=yellow>Confirm</color> to progress the dialogue.
+(pause)
+Where things get really interesting is when players disagree about what should happen next.
+ScreenPlay supports a number of ways to handle disagreements, which we've divided into different areas like a theme park.
+So where would you like to go first?
+
+(decision: park_choice)
+(scene: park_transition)
+
+[[park_choice]] (type: vote, wrap count: 3)
+Democracy Land
+	($park_dest = democracy)
+	($park_bg = landscape_rand1)
+Economy Central
+	($park_dest = economy)
+	($park_bg = desert_day)
+Individuality World
+	($park_dest = individual)
+	($park_bg = wizardtower)
+Interruption Town
+	($park_dest = interruption)
+	($park_bg = town_shore)
+Visual Effect City
+	($park_dest = effects)
+	($park_bg = landscape_rand1)
+Credits
+	($park_dest = credits)
+	($park_bg = town_gate)
+
+--- park_transition ---
+	(branch: departure)
+	(background: $park_bg)
+	(scene: $park_dest)
+
+[[departure]]
+credits (show if: $park_dest == credits)
+	ORA
+	Awesome! Thanks for playing!
+Default
+	ORA
+	Great! Have fun!
+
+--- return_to_gate ---
+(chapter: Town Gate)
+(background: town_gate)
+(Enter Ora to center)
+
+ORA
+Welcome back! Where to next?
+
+(decision: park_choice)
+(scene: park_transition)
+
+--- democracy ---
+(chapter: Democracy Land)
+(Enter King center stage)
+
+KING
+Welcome to Democracy Land!
+I'm the King, which totally makes sense because Democracy Land is actually a monarchy!
+Anyway, this area is about voting and agreements. For some choices, the majority will win, and for other choices the only way to proceed is for the vote to be unanymous.
+Which kind of choice would you like to see first?
+(decision: democracy_choices)
+
+--- democracy_return ---
+KING
+Try another?
+(decision: democracy_choices)
+
+[[democracy_choices]]
+Hidden Vote
+	The normal choice mode (which you've been using for the menus so far) is a majority vote. In the case of a tie, one of the leading options is chosen at random.
+	A hidden vote works the same way, but the results of the vote aren't visible as the choices are being made. As a result, a different control scheme is used.
+	This kind of choice might be used for personal preferences where you don't want the players' choices to be affected by what other people are choosing. Ultimately, only one result can happen with a vote. 
+	For more advanced examples of personal choices, check out Split Choices in Individuality World.
+	Example time - I'm about to bestow a magical power on my finest champion. Which should it be?
+	(pause)
+	(decision: hidden_vote)
+	(scene: democracy_return)
+Forced Agreement
+	In a forced agreement, players have to agree for the decision to happen. When players disagree, someone has to give.
+	The idea is to get the players to talk amongst themselves outside of the game to come to a consensus.
+	These types of choices are best used when players are likely to evaluate options differently - maybe your game has each player representing a different group and they need to have their own interests in mind.
+	Another option is to ask something about which people have strong opinions. Example time - what do you want for dinner?
+	(pause)
+	(decision: forced_agreement)
+	(scene: democracy_return)
+Timed Agreement
+	A timer can be added to any type of choice, and will behave differently depending on the kind of decision.
+	For votes, those who haven't voted just won't be counted. If nobody votes, the first option is selected by normal. For independent choices, those who haven't chosen will also normal to the first choice.
+	In the case of a forced agreement, a failure path can be defined that will only happen if players can't come to an agreement.
+	Timers are stressful, so use these kinds of choices to up the tension in a story!
+	Example time - The boat is sinking! Who do you save???
+	(pause)
+	(decision: timed_agreement)
+	(scene: democracy_return)
+Return to Gate
+	(scene: return_to_gate)
+
+
+
+[[hidden_vote]] (type: hidden vote)
+Flight
+	Flight? Wouldn't they get cold, though?
+	(important)
+Invisibility
+	Invisibility? Wouldn't they get run over?
+	(important)
+X-Ray Vision
+	X-Rays? That sounds dangerous!
+	(important)
+Time Control
+	Time control? Solid.
+	(important)
+
+[[forced_agreement]] (type: agreement)
+Burgers
+	Burgers it is!
+	(important)
+Thai Food
+	Thai is my favorite!
+	(important)
+Pizza
+	Pizza it is!
+	(important)
+Chinese Food
+	Chinese? Solid.
+	(important)
+Deli sandwiches
+	Sandwiches pretty healthy, I guess.
+	(important)
+
+[[timed_agreement]] (type: agreement, timer: 10)
+Drown (type: failure)
+	Time's up! You've all drowned!
+	(important)
+Your mother
+	Yeah, you owed her one anyway!
+	(important)
+Your brother
+	Your ties are strong.
+	(important)
+Your child
+	Good choice. Children are the future!
+	(important)
+Your cat
+	Your cat? Really?
+	(important)
+
+--- economy ---
+(chapter: Economy Central)
+(Enter Marcus to center)
+
+MARCUS
+Welcome to Economy Central!
+This area is all about resource management. Giving your players resources like money to take care of can make them feel more invested in the story.
+They can also allow for more granular choices - instead of A, B, or C, how much of each would you like?
+Might make more sense once you see it in action... What do you want to see first?
+(decision: economy_choices)
+
+--- economy_return ---
+Try another?
+(decision: economy_choices)
+
+[[economy_choices]]
+Shop
+	A shop you choose how to spend resources. Use this kind of choice for stores - literal or metaphorical.
+	For instance, you have 4 hours free this afternoon. How do you want to spend them?
+	(pause)
+	($players.time = 4)
+	(decision: allocate)
+	Nice! Each purchased option can have various effects based on the game - they could make you stronger, more rested, or give you more money!
+	($players.time = 3)
+	You've got another 3 hours this evening - how do you want to spend it?
+	(decision: allocate)
+	As players' stats change over time it can affect how the story branches, particularly if those stats represent how other characters feel about you.
+	For your information, the happiest player is $pMax.happy , the most rested player is $pMax.rested , the most well-read is $pMax.smart , and the richest is $pMax.money .
+	(scene: economy_return)
+Limited Shop
+	Limits on allocation put a cap on how many times an option can be chosen. You might use this if an option is very powerful, along with giving it a high price.
+	You might also use it to track progress on something that requires repeated investment throughout a game, like paying research points to unlock upgrades for a spaceship or something.
+	So you have some money now. Let's pretend you're developing a city. What do you want to spend your money on?
+	(pause)
+	(decision: limited_allocate)
+	(branch: finished_project_check)
+	Looks like you've been spending the city's money well - they're giving you bonus money for another round of development! How would you like to spend it?
+	($players.money += 5)
+	(decision: limited_allocate)
+	(branch: finished_project_check)
+	(scene: economy_return)
+Lottery
+	In a bid, players use resources to weigh the probability of different options happening. It's kind of like buying tickets for a lottery.
+	Only one outcome will happen, and players vote with their dollar - so to speak. Use this kind of decision when some resource representing power would give players different amounts of influence over a situation.
+	These "lotteries" can also have a few options populated by the computer. If they're bad options, now the players are paying to try to avoid them.
+	Example time! You forgot to study for that test tomorrow morning. You only have 6 hours to prepare, so how do you spend your time?
+	(pause)
+	($time_pool = 6)
+	($time_pool /= $_player_count)
+	($players.time += $time_pool)
+	(decision: lottery)
+	(scene: economy_return)
+Return to Gate
+	(scene: return_to_gate)
+
+[[finished_project_check]]
+both (show if: $school_progress_left == 0 && $prison_progress_left == 0)
+	You finished building the school <b>and</b> the prison? We can call ourselves a <i>real</i> town now!
+school (show if: $school_progress_left == 0)
+	Awesome! You finished building the <b>school</b>! Now you can invest in scholarships!
+prison (show if: $prison_progress_left == 0)
+	The prison is complete! Hooray?
+Default
+	Great job!
+
+[[allocate]] (type: shop, currency: time, show stats: happy; rested; smart; money)
+Read a book (price: 1, per vote: $active_player.smart +% 20; $active_player.happy +% 10)
+Nap (price: 1, per vote: $active_player.rested +% 30; $active_player.happy +% 20)
+Work (price: 3, per vote: $active_player.happy -% 10; $active_player.rested -% 40; $active_player.money += 3)
+
+[[limited_allocate]] (type: shop, currency: money, player test: money >= 1, exclusion message: Must have at least 1 gold to participate)
+Scholarship grants (show if: $school_progress_left <= 0, per vote: $active_player.happy +% 5)
+Reinvest it (per vote: $active_player.money += 2)
+Build a school (show if: $school_progress_left > 0,hide: true,limit: school_progress_left)
+Build a prison(show if: $prison_progress_left > 0, hide:true,  limit: prison_progress_left)
+
+[[lottery]] (type: lottery, currency: time)
+Study the text book
+	You passed, but just barely. You got 70/100.
+	(important)
+Cheat! (limit: 3)
+	You got 100/100, you cheater!
+	(important)
+Failure (type: failure, bad tickets: 3)
+	You got a 53/100, but it's okay - you can make it up.
+	(important)
+Miserable Failure (type: failure, bad tickets: 1)
+	You had no idea what you were doing.
+	You got a 14/100.
+	(important)
+	Oh well, you can take the class again next year!
+	(important)
+
+--- individual ---
+(chapter: Individuality World)
+(Enter Erika to center)
+ERIKA
+Welcome to Individuality World!
+This area is all about choices that are independent of what the rest of the party chooses. Everyone's a snowflake, so let them make their own choices.
+(Erika moves to left)
+What would you like to see first?
+(decision: individual_choices)
+
+--- individual_return ---
+(chapter: Individuality World)
+(Erika moves to center)
+Try another?
+(decision: individual_choices)
+
+[[individual_choices]]
+Spinner
+	A spinner takes into account everyone's choices, so minority votes might actually happen! It's basically a lottery where everyone gets 1 ticket. 
+	This is only different from a vote when there are at least 3 players. Use a lottery like this when players have some influence over an outcome, but some factors are unknown.
+	Example time! I'm painting my cottage soon, and am taking recommendations on paint colors. What color should we paint it?
+	(pause)
+	(decision: spinner)
+	(scene: individual_return)
+Hidden Spinner
+	A hidden spinner is just like a spinner, but lets choices happen in private.
+	Example time! One of my sheep is pregnant and I'm trying to decide on a name for the baby. Which do you like best?
+	(pause) 
+	(decision: hidden_spinner)
+	(scene: individual_return)
+Poll
+	A poll will do something based on each player's choice, regardless of what other people chose.
+	Use this kind of choice when players are primarily affecting themselves, or their choices won't interfere with those of the other players.
+	Example time! What do you want to wear today?
+	(pause) 
+	(decision: poll)
+	(scene: individual_return)
+Hidden Poll
+	A hidden poll is just like a split choice, but with privacy! Use it to ask players about their intentions without having them telegraph them to other players.
+	For instance, you have a vacation coming up. How are you going to use it?
+	(pause) 
+	(decision: hidden_poll)
+	I won't comment on what y'all chose, but your stats have changed. Check them out in the pause menu, or by choosing this decision again!
+	(scene: individual_return)
+Return to Gate
+	(scene: return_to_gate)
+
+[[spinner]] (type:spinner)
+Red (color = red)
+	I think we should paint it red!
+	(important)
+Brown (color = 134, 25, 30)
+	I think we should paint it brown!
+	(important)
+Green (color = green)
+	I think we sohuld paint it green!
+	(important)
+Blue (color = blue)
+	I think we should paint it blue!
+	(important)
+		
+[[hidden_spinner]] (type: hidden spinner)
+Emma
+	Looks like I'm naming it Emma! I wonder if it's a boy...
+	(important)
+Scarlet
+	Looks like I'm naming it Scarlet! I wonder if it's a boy...
+	(important)
+Fluffy
+	Looks like I'm naming it Fluffy!
+	(important)
+Storm Cloud
+	Looks like I'm naming it Storm Cloud!
+	(important)
+
+[[poll]] (type: poll)
+A business suit
+	($active_player.outfit = suit)
+	ACTIVE PLAYER
+	I'm looking very sharp in this suit!
+A sweater
+	($active_player.outfit = sweater)
+	ACTIVE PLAYER
+	This sweater is so comfy! All I need is some cocoa!
+A sun dress
+	($active_player.outfit = dress)
+	ACTIVE PLAYER
+	This gown is just <i>lovely</i>.
+
+[[hidden_poll]] (type: hidden poll, show stats: happy; rested; smart)
+Road Trip
+	($active_player.happy +% 40)
+	($active_player.rested +% 10)
+
+Creative Project
+	($active_player.smart +% 40)
+	($active_player.rested -% 10)
+
+Movie Binge
+	($active_player.rested +% 40)
+	($active_player.smart -% 20)
+
+--- interruption ---
+(chapter: Interruption Town)
+(enter Kendra center)
+	
+KENDRA
+Welcome to Interruption Town!
+Rather than just clicking through dialogue, you can make it interactive by providing optional interjections.
+In ScreenPlay, when there's an available interruption it will appear as a red box in the bottom right of the dialogue box.
+The first player to press <color=red>Cancel</color> will interrupt the dialogue.
+(interrupt: Interrupt, scene: practice_interrupt)
+Anyhow, these interrupts can be simple expansions on what's being said, or drastically change the course of the story. 
+Since pressing <color=yellow>Confirm</color> to progress dialogue will skip the opportunity to interrupt, they're kind of like quick time events.
+So here's a scene with some people arguing with a lot of possibilities to interject...
+The first few will be harmless, but the further along in the conversation you get the more likely it will end the conversation altogether. Everyone ready?
+(pause)
+(interrupt: Not me!, scene: hesitant_player, type: divert)
+(scene: crime_scene_investigation)
+
+--- hesitant_player ---
+ACTIVE PLAYER
+Wait! I'm not ready!
+
+KENDRA
+Okay, we'll give you a moment to prepare...
+...
+... and...
+Okay! Now are we ready?
+(pause)
+(interrupt: Not me!, type: divert, scene: hesitant_player)
+(scene: crime_scene_investigation)
+
+--- practice_interrupt ---
+ACTIVE PLAYER
+Like this?
+
+KENDRA
+That's right! Good job!
+
+--- crime_scene_investigation ---
+(background: forest)
+NARRATOR
+A heaviness hangs about this place. Dark deeds were performed here - you can sense it.
+
+(Enter Oliver left)
+OLIVER
+Here we are.
+
+(Enter Landra right)
+LANDRA
+Good evening, sirs and madams.
+
+OLIVER
+Hello again.
+
+LANDRA
+Envoy, this site is as we found it. The signs of the slaying are clear.
+
+OLIVER
+No body was recovered. We'd call Ora missing but...
+
+LANDRA
+But her essence has vanished.
+All the forest's creatures can feel the presence of their kin. And hers has been snuffed out.
+Her apparent evaporation and the defilement of the flora lead me to believe that a wizard was involved.
+
+OLIVER
+Saltrock Grove has no resident wizards to speak of, though some of our residents practice minor charms.
+
+LANDRA
+I think whoever did this was paid well for their pains and have themselves disappeared.
+(interrupt: Don't guess, scene: only_the_facts, type: insert)
+
+OLIVER
+We haven't even proven that this is Ora's blood. This could be totally unrelated.
+(interrupt: Not now, scene: be_sensitive, type: insert)
+
+LANDRA
+I need no more proof than her essence. You humans feel nothing of the Gaia or her movements.
+You merely pillage her for your supper and leave her scorched without a word of thanks!
+(interrupt: Calm down, scene: calm_down, type: divert)
+
+OLIVER
+We have done everything we can to help you in this matter - we even expanded the investigaton.
+hat was far more than was required since you and yours aren't even within our jurisdiction!
+(interrupt: Not now, scene: be_sensitive, type: insert)
+
+LANDRA
+I think Ora's presence was a shame on the humans of Saltrock and she was slain brutally and morbidly as a message to our people!
+(interrupt: Don't guess, scene: only_the_facts2, type: divert)
+
+OLIVER
+I think your people aren't grateful no matter how much effort we make to appease you!
+(interrupt: Calm down, scene: calm_down, type: divert)
+
+LANDRA
+Grateful? Humans ravage our land and poison our water and we should throw a parade when they treat us as living beings?
+(interrupt: Calm down, scene: calm_down, type: divert)
+
+OLIVER
+You are trespassing on a crime scene.
+(interrupt: Calm down, scene: calm_down, type: divert)
+
+LANDRA
+No, YOU are trespassing on the sacred ground of GAIA'S DAUGHTERS!
+(interrupt: Calm down, scene: calm_down, type: divert)
+
+OLIVER
+I cannot operate with this much animosity. May you have luck dealing with the elves - you'll need it.
+I'm off.
+(exit Oliver)
+
+LANDRA
+I can't be here right now. To know that the humans respect our lives and land so little nauseates me.
+(exit Landra)
+
+NARRATOR
+That went well.
+(scene: return_to_gate)
+
+--- only_the_facts ---
+ACTIVE PLAYER
+We're not sure of anything for sure yet.
+(tutorial message: Landra will remember that...)
+
+LANDRA
+No, of course not. But this is what we believe.
+(clear tutorial message)
+
+OLIVER
+Okay, okay, anyway...
+
+--- only_the_facts2 ---
+ACTIVE PLAYER
+We don't actually know what happened yet, so let's not speculate.
+We'll get to the bottom of this, I'm sure.
+(tutorial message: Landra will remember that...)
+LANDRA
+How very typical for a human to ignore what is laid so plainly before them.
+(clear tutorial message)
+I will return to my mourning, for I see no reverence here.
+(exit Landra)
+OLIVER
+An investigator cannot be reverent. No, we must find the truth as best we can in service of justice.
+...
+That's all there is to see here - some blood and withered plants is all.
+(scene: return_to_gate)
+
+--- calm_down ---
+ACTIVE PLAYER
+Let's just calm down!
+We need to work together if we're going to solve this crime.
+LANDRA
+...
+OLIVER
+...
+ACTIVE PLAYER
+I need both of your help, and we won't solve anything with you at each other like wolverines.
+LANDRA
+You speak truth, but you are an outsider to our people. You know not of our struggles.
+OLIVER
+I will remain civil for the sake of justice, but I will not hear of our imagined wrongdoings.
+(exit Landra)
+(exit Oliver)
+NARRATOR
+The disappear into opposite sides of the clearing, still fuming.
+There isn't much else to see here
+(scene: return_to_gate)
+
+--- be_sensitive ---
+ACTIVE PLAYER
+Oliver, this isn't the time.
+(tutorial message: Oliver will remember that...)
+OLIVER
+I just...
+(clear tutorial message)
+
+ACTIVE PLAYER
+The elves just lost one of their kin. We shouldn't aggravate them while they're mourning.
+
+--- effects ---
+(chapter: Visual Effect City)
+(Enter Kendra center)
+KENDRA
+Welcome to Visual Effect City!
+This is basically a sandbox for you to experiment with various effects available in ScreenPlay. Which do you want to see?
+(decision: effect_choice)
+(scene: effects_return)
+
+--- effects_return ---
+KENDRA
+What next?
+(decision: effect_choice)
+(scene: effects_return)
+
+[[effect_choice]]
+Screen flash
+	KENDRA
+	Screen flashes can happen in a variety of colors. Here, let me open this jar of faeries!
+	(screen flashes)
+	(screen flashes, color: red)
+	(screen flashes, color: yellow)
+	(screen flashes, color: green)
+	(screen flashes, color: blue)
+	(screen flashes, color: black)
+
+	Well, there they went... The brightness profile and duration of a screen flash can also be adjusted to have more of a slow fade in or out.
+	(screen flashes)
+	(screen flashes, attack: 0.2)
+	(screen flashes, attack: 0.8)
+	(screen flashes, attack: 0.8, duration: 2)
+
+Screen shake
+	Here's the standard screen shake, followed by small and big ones. Did you feel that!?
+	(screen shakes)
+	(screen shakes, intensity: 15)
+	(screen shakes, intensity: 50)
+
+	The decay rate can be adjusted to have different effects as well...
+	(screen shakes, intensity: 50, decay: 0.99)
+	(screen shakes, intensity: 20, decay: 0.9)
+
+Blink
+	I feel strange... Like I'm not even here...
+	(Kendra blinks)
+Blush
+	I'm so embarrassed!
+	(Kendra blushes)
+	Other colors are also available. I'm feeling sick...
+	(Kendra blushes, color: green)
+	Oh! Did the sun come out?
+	(Kendra blushes, color: yellow, duration: 2, gain: 0.03)
+
+Darken
+	An ominous wind is blowing from the north...
+	(Kendra darkens)
+Squish
+	Distortion can make things feel more squishy and animated without having to do much work.
+	(Kendra squishes, intensity: 0.3, wait time: 0)
+	I'm so excited!
+	(Kendra squishes)
+	(Kendra squishes, intensity:0.2,duration:0.2)
+	(Kendra squishes, intensity:0.8,duration:1)
+
+Throb
+	(Kendra throbs, wait time: 0)
+	Hey!
+	(Kendra throbs, intensity:1.5, wait time:0)
+
+	<b>HEY!!</b>
+	
+	PLAYER WITH HIGHEST MONEY
+	WHAT???
+	(Kendra blushes, wait time:0)
+	(Kendra throbs, intensity: 0.7, duration:2, gain: 0.005, wait time:0)
+	
+	KENDRA
+	Nothing...
+Shake
+	(Kendra shakes)
+
+	Did you hear that?
+
+	(Kendra shakes, wait time:0, decay:0.97)
+
+	I'm <i>scared</i>...
+Cutscenes
+	You can make cool cutscenes like this!
+	(music: soft piano)
+	(cutscene: opening)
+	(clear cutscene)
+	(music: test_music)
+Back
+	(scene: return_to_gate)
+
+<< opening >>
+layer: street, image: london1, stretch: true
+layer: bay, image: town_bay
+layer: mist, image: mist
+layer: mist2, image: mist
+layer: mist3, image: mist
+
+timepoint: 0
+	fade in: street, duration: 0.2
+	fade in: bay
+	fade in: mist
+	fade in: mist2
+	fade in: mist3
+	zoom: mist, amount: 0.25, point: (0.3; 0.1), duration: 0.01
+	zoom: mist2, amount: 0.7, point: (0.8; 0.1), duration: 0.01
+	zoom: mist3, amount: 0.5, point: (1.3; 0.1), duration: 0.01
+	zoom: bay, amount: 1.5, point: (0.4; 0.4), duration: 7
+	text: Between a forest and a bay stood Evanbrook, home of the noble who stood on the poor.
+	
+timepoint: 0.5
+	zoom: mist, amount: 0.6, point: (0; 0.1), duration: 9
+	zoom: mist2, amount: 0.8, point: (0.5; 0.1), duration: 9
+	zoom: mist3, amount: 0.6, point: (1; 0.1), duration: 9
+
+timepoint: 5
+	clear text
+	
+timepoint: 7
+	fade out: bay
+	text: The rain of Evenbrook is harsh tonight...
+
+timepoint: 9
+	zoom: street, amount:3,point:(-0.5;0.5),duration:7
+	zoom: mist, amount:0.8,point:(-0.2;-0.2),duration:7
+	zoom: mist2, amount:1,point:(0.3;-0.2),duration:7
+	zoom: mist3, amount:0.8,point:(0.8;-0.2),duration:7
+
+timepoint: 11
+	clear text
+timepoint: 13
+	text: And within these walls the urchins of Evanbrook seek refuge from the bitter cold...
+timepoint: 16
+	(pan: mist, duration:1.5, point:(-0.24;-0.2))
+	(pan: mist, duration:1.5, point:(0.26;-0.2))
+	(pan: mist, duration:1.5, point:(0.76;-0.2))
+
+timepoint:17
+	clear text
+
+
+--- credits ---
+(exit all)
+NARRATOR
+Portrait art: Justin Nichol and the Flare Project
+Backgrounds: opengameart.org's bloodywing, JAP, and ramtam
+Music: Will Bucknum
+(curtains)
+(music: off)
+(hide_GUIs)
+(curtains)
+(decision: game_select)

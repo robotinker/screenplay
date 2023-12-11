@@ -1,0 +1,776 @@
+(soft piano plays)
+
+(cutscene: opening)
+(background: dark room)
+(clear cutscene)
+
+(Enter Josephine to stage left)
+
+JOSEPHINE
+Who's there?
+
+(Josephine moves to center stage)
+
+(if: $_player_count == 1)
+	All alone, huh?
+
+(else if: $_player_count == 2)
+	Oh, what a cute couple...
+	(pause)
+(else:)
+	Oh yeah? So $_player_count of you, huh?
+	(pause)
+
+
+(lock characters)
+So who are you?
+
+(character available: Alonzo)
+(character available: Emma)
+(character available: Gideon)
+(character available: Ruth)
+(character_select)
+
+NARRATOR
+A friend's dying words echo in your ears. You're not sure why you came to this place, but you did as you were told.
+He always had a way of making people obey...
+His echoing words gets louder until $pMax.bravery can no longer contain them.
+
+PLAYER WITH MOST BRAVERY
+We are of the Starving Kin.
+We seek the blessing of the Shriven One.
+
+JOSEPHINE
+Yeah? Who isn't these days... What is it you're looking for?
+
+(show player stats: bravery; charm; cunning; will)
+(decision: motivation)
+
+(Josephine moves to stage right)
+Interesting stuff. Hope you find what you're looking for in this town. People out there can be generous, but cruel too.
+(hide player stats)
+(screen flashes, color: magenta)
+Hey hey, lucky you. Looks like it's just about time. Come this way...
+
+NARRATOR
+Josephine removes a painting from the wall to reveal a hole leading straight down into the heart of Evanbrook.
+A dancing light flickers up and out of the gap between the boards, getting brighter and brighter.
+
+JOSEPHINE
+Gotta do it now, kid. The Heart ain't waiting.
+
+(screen flashes, color: magenta, wait time: 0)
+NARRATOR
+You put your hands into the space where the wall once was and feel the light, warm as it flows around your fingers.
+(screen flashes, color: magenta, wait time:0)
+(screen shakes)
+You feel something awaken in you. It's as if the whole world will listen if you dare to speak.
+(important)
+(screen flashes, color: magenta, attack: 0.2, duration: 3, wait time:0)
+The power pulsates faster, and with every surge you feel as if you could own this city. Its heart is yours.
+
+(screen flashes)
+JOSEPHINE
+Hey! Not too much! You'll fry your brain - I've seen it.
+
+(Josephine moves to center stage)
+NARRATOR
+Josephine pulls you away from the wall, and the light fades.
+
+JOSEPHINE
+You've got the gift now kid. This city's given you a voice and now you have to decide what to do with it.
+Just don't try to zombify anyone without some food in your belly. Looks like you could use some.
+I'm barely scraping by as it is. Get out there and beg - you'll get around to ruling the world later.
+Just don't forget who gave you the blessing. Catch you around.
+(exit Josephine left)
+
+NARRATOR
+The night is cold, and you awake with a hunger you've never experienced. The usual need for food is there, but so is the hunger for power...
+
+(scene: chapter1)
+
+[[ motivation ]] (type: poll, wrap count: 4)
+To avenge my parents (per vote: $active_player.will +% 10; $active_player.cunning +% 10)
+
+To influence the nobility (per vote: $active_player.charm +% 20)
+
+To punish the wicked (per vote: $active_player.bravery +% 20)
+
+To live as royalty (per vote: $active_player.will +% 20)
+
+To find my home (per vote: $active_player.will +% 10; $active_player.bravery +% 10)
+
+To unite us all (per vote: $active_player.will +% 10; $active_player.charm +% 10)
+
+To redeem my past (per vote: $active_player.bravery +% 10; $active_player.charm +% 10)
+
+To outpace my enemies (per vote: $active_player.cunning +% 20)
+
+<< opening >>
+layer: street, image: london1, stretch: true
+layer: bay, image: town_bay
+layer: mist, image: mist
+layer: mist2, image: mist
+layer: mist3, image: mist
+
+timepoint: 0
+	fade in: street, duration: 0.2
+	fade in: bay
+	fade in: mist
+	fade in: mist2
+	fade in: mist3
+	zoom: mist, amount: 0.5, point: (0.3; 0.1), duration: 0.01
+	zoom: mist2, amount: 0.7, point: (0.8; 0.1), duration: 0.01
+	zoom: mist3, amount: 0.5, point: (1.3; 0.1), duration: 0.01
+	zoom: bay, amount: 1.5, point: (0.4; 0.4), duration: 7
+	text: Between a forest and a bay stood Evanbrook, a capital whose riches knew no end.
+	
+timepoint: 0.5
+	zoom: mist, amount: 0.6, point: (0; 0.1), duration: 9
+	zoom: mist2, amount: 0.8, point: (0.5; 0.1), duration: 9
+	zoom: mist3, amount: 0.6, point: (1; 0.1), duration: 9
+
+timepoint: 5
+	clear text
+
+timepoint: 7
+	fade out: bay
+	text: In the shadows between grand estates, the poor starved in silence. Among them were children - urchins, born into suffering...
+
+timepoint: 9
+	zoom: street, amount: 3, point: (-0.4;0.7),duration:7
+	zoom: mist, amount: 0.8, point: (-0.2; -0.2), duration: 7
+	zoom: mist2, amount: 1, point: (0.3; -0.2), duration: 7
+	zoom: mist3, amount: 0.8, point: (0.8; -0.2), duration: 7
+
+timepoint: 11
+	clear text
+
+timepoint: 13
+	text: But even an urchin has their day, and soon the fate of Evanbrook would be shaped by tiny mottled hands...
+
+timepoint: 16
+	pan: mist, point: (-0.24; -0.2), duration: 1.5
+	pan: mist2, point: (0.26; -0.2), duration: 1.5
+	pan: mist3, point: (0.76; -0.2), duration: 1.5
+
+timepoint: 17
+	clear text
+
+--- chapter1 ---
+(chapter: A day in the life)
+(background: Darmstadt_in_1900)
+
+NARRATOR
+And so the hunt begins...
+($players.status = <color=red>Hungry</color>)
+
+(Enter Hester right)
+(Enter Harland left)
+(Enter Nora center)
+(Enter Stephen right in background)
+NARRATOR
+Your friends meet you outside as the sun rises over Evanbrook.
+
+(Nora looks sad)
+NORA
+I'm so hungry...
+
+HESTER
+We need money.
+
+HARLAND
+Money's just a middle man, my friends. Food is the goal!
+Look over there...
+
+NARRATOR
+Harland points to a street vendor selling cured meats. He appears to be fumbling with the meat hooks.
+The smell of ham and sausages makes your stomach rumble in response.
+
+HARLAND
+It would be so easy to swipe from his cart. 
+He's moving slow this morning. Even if he sees us he couldn't really <i>catch</i> us!
+
+(Nora looks normal)
+NORA
+Well sure, but I bet we can scrounge some honest coin somehow...
+Look, there's a group of travellers - I bet they'd like someone to show them around town!
+
+(Hester moves to right background)
+(Stephen moves to stage right)
+STEPHEN
+I agree, but street performances work just as well and we wouldn't have to muck all about town.
+Why don't we just sit right here and play the drums?
+
+NARRATOR
+Stephen produces a set of tin cans he's been collecting.
+He beams as he raps on one for demonstration. The sound is <i>tinny</i>, but that's what you'd expect from tin cans, right?
+What do you think?
+(show player stats: bravery; charm; cunning; will)
+(decision: fund_raising)
+
+[[fund_raising]] 
+Steal from the meat stand (per vote: $active_player.cunning +% 10)
+	(exit all)
+	NARRATOR
+	You inquire with the meat monger about how his business is going. He looks suspicious...
+	(hide player stats)
+	Harland asks if he has any bacon with him. The man turns to open a box behind him and leans in.
+	Harland's hands are quick and precise. He snatches dried meats off of the racks and thrusts them into his pockets - and yours.
+	(important)
+	You skurry into the shadows before the merchant even notices you've left.
+	He shifts from groggy to alarmed, and then to furious in the span of a second. His head snaps this way and that, searching for you... 
+	But to no avail. His red face twists into pained smirk, and he pounds his meat stand with his fist.
+	(show player stats: energy)
+	($players.status = )
+	But at least you have food!
+	($players.energy += 3)
+	($steal_path = true)
+
+	As the day wears on, you take to begging near a deli.
+	(hide player stats)
+
+	A man casts a bar of chocolate at your feet, which might as well have been made of gold.
+	(Enter Hester right)
+	(Enter Stephen right background)
+	(Enter Nora center)
+	(Enter Harland left)
+
+	($character_count = 4 + $_player_count)
+	The bar is scored into $character_count pieces - just enough to share.
+	(branch: stolen_chocolate)
+	Hester is watching people closely.
+	(scene: psy_intro)
+Ask travellers if they'd like a tour (per vote: $active_player.bravery +% 10)
+	HARLAND
+	Do what you please.
+	(tutorial message: Harland will remember that)
+	(exit Harland)
+
+	(hide player stats)
+
+	NORA
+	We will!
+	(clear tutorial message)
+	(exit all)
+
+	NARRATOR
+	Nora greets the travellers warmly, who are delighted to see your merry band of urchins.
+	(important)
+	You show them about the city, which amuses them greatly.
+	($players.money += 2)
+
+	The travellers give you 2 gold each before going on their way.
+	(scene: shop_intro)
+Put on a drum show (per vote: $active_player.charm +% 10)
+	HARLAND
+	Do what you please.
+	(tutorial message: Harland will remember that)
+	(exit Harland)
+
+	(hide player stats)
+
+
+	STEPHEN
+	Harland...
+	(clear tutorial message)
+	Well, he was never a very good performer anyway. Let's begin.
+	(exit all)
+	NARRATOR
+	Stephen taps out a little beat and nods for you to do the same with the can he's supplied you.
+	What you lack in talent, you make up for in enthusiasm.
+	(important)
+	($players.money += 2)
+
+	Onlookers are amused, and after throwing in a whistle here and there, you scrounge together a few coins.
+	(scene: shop_intro)
+
+--- shop_intro ---
+($steal_path = false)
+NARRATOR
+Down the road you enter a bakery that sells to the poor at a discount.
+It serves you well to have a good relationship with this particular merchant, so you keep your hands to yourselves.
+
+(Enter Helen left)
+(Enter Hester right)
+(Enter Stephen right background)
+(Enter Nora right background)
+
+HELEN
+Hello children! I hope you're staying out of trouble...
+
+PLAYER WITH MOST CUNNING
+Of course we are!
+
+(Helen looks happy)
+HELEN
+What can I get you today?
+(show player stats: energy)
+(decision: food_shop)
+NARRATOR
+The shop keeper hands you the food over the counter and you scurry off to a corner to scarf it down.
+
+(hide player stats)
+
+(Enter Harland left)
+HARLAND
+Hey, there you are!
+
+PLAYER WITH MOST CHARM
+Hey, Harland.
+
+HARLAND
+Guys, look what I scored!
+(important)
+($character_count = 4 + $_player_count)
+
+NARRATOR
+Harland holds out a bar of chocolate scored into $character_count pieces - just enough to share.
+(branch: stolen_chocolate)
+Hester watches eagerly out the shop window as you eat.
+(scene: psy_intro)
+
+[[stolen_chocolate]]
+Share (show if: $_player_count == 1)
+	(Enter Stephen center)
+	STEPHEN
+	Magnificent! Let's have it!
+	($players.energy += 1)
+Fight
+	NARRATOR
+	It's been <i>so long</i> since you've even <b>seen</b> a piece of chocolate.
+	You <i>could</i> share it, but... Your mouth is watering uncontrollably.
+	($total_agro = 0)
+	(branch: dilemma_init)
+	(decision: prisoners_dilemma)
+	(branch: dilemma_result)
+
+[[dilemma_init]] (type: per player)
+Default
+	($active_player.agro = 0.0)
+
+[[prisoners_dilemma]] (type: hidden poll)
+Share (per vote: $active_player.charm +% 10)
+		
+Steal it! (per vote: $active_player.will +% 10; $active_player.charm -% 10)
+	($active_player.agro = 1)
+	($total_agro += 1)
+
+[[dilemma_result]]
+Share (show if: $Max.agro == 0)
+	NARRATOR
+	Despite how fiercely your stomach protests, you manage to control yourselves.
+
+	PLAYER WITH HIGHEST CHARM
+	Let's share.
+
+	HARLAND
+	Well yeah, we're family - we look out for each other!
+	($players.energy += 1)
+Steal (show if: $total_agro == 1)
+	PLAYER WITH HIGHEST AGRO
+	Mine!
+
+	NARRATOR
+	$pMax.agro swipes the chocolate from Harland's hands and licks it all over.
+
+	PLAYER WITH MOST AGRO
+	Mine...
+	(branch: thief_award)
+
+	(Nora looks sad)
+
+	HARLAND
+	...
+
+	(branch: disappointed_desc)
+	(exit all)
+Fail
+	(branch: frenzy)
+	(branch: fight_desc)
+
+[[disappointed_desc]]
+steal path (show if: $steal_path == true)
+	NARRATOR
+	The others look on in amazement, but life is tough in the streets. They return to begging.
+
+Not steal path
+	NARRATOR
+	The others look on in amazement, but at least they have what they've bought...
+
+[[fight_desc]]
+steal path (show if: $steal_path == true)
+	NARRATOR
+	An argument breaks out over the precious candy bar, making quite a scene. While you fight amongst yourselves, bigger kid steps in.
+
+	(Enter Josephine center)
+	JOSEPHINE
+	I'll be taking this.
+	(exit Josephine)
+
+	NARRATOR
+	You go back to begging, feeling slightly ashamed.
+Default
+	NARRATOR
+	An argument breaks out over the precious candy bar, making quite a scene. Helen steps in to break up the fight.
+
+	(Helen moves to stage left)
+	HELEN
+	This is no way for children to behave!
+
+	NARRATOR
+	She takes the candy away.
+
+	HELEN
+	Ill-gotten, no doubt. It'd rot your teeth out anyhow...
+
+	NARRATOR
+	You return quietly to the food you've purchased.
+
+[[ frenzy ]] (type: per player)
+Stealing (show if: $active_player.agro == 1)
+	ACTIVE PLAYER
+	Mine!
+
+[[thief_award]] (type: per player)
+Award (show if: $active_player.name == $pMax.agro)
+	($active_player.energy += $character_count)
+Default
+
+[[food_shop]] (type: shop, currency: money, show stats: energy)
+Bread for you [+1 energy] (per vote: $active_player.energy += 1; $active_player.status = )
+Bread for everyone [+1 energy for all] (price: 2, per vote: $players.energy += 1; $players.status = )
+Soup to share [+2 energy for all] (price: 4, per vote: $players.energy += 2; $players.status = )
+
+--- psy_intro ---
+(Enter Hester right)
+
+NARRATOR
+She leans in, fixated on something...
+
+(Hester squishes, amount: 0.55,	wait time: 0)
+HESTER
+There!
+
+PLAYER WITH GREATEST CUNNING
+What is it?
+
+(Enter Lorena center)
+HESTER
+A starry-eyed traveller. She's new to town - you can tell.
+(pause)
+Just look at how she's stumbling around. Looks like she has some money to throw around too.
+(Hester shakes, wait time: 0, gain: 0.1)
+Here she comes!
+
+LORENA
+Oh, what a lovely little bakery! 
+
+(Enter Helen left looking happy)
+HELEN
+Thank you, ma'am! It's the finest in the city!
+
+LORENA
+Hm. I'd say it's more quaint than fine... Now what are these <i>urchins</i> doing here? 
+I'd think even a place of this calibur could be troubled to keep out the riffraff.
+
+HELEN
+Some value charity more than high society, ma'am.
+
+LORENA
+Charity, indeed. Well I'll take my leave. May your charity efforts prove to be a good investment.
+
+(Hester darkens, wait time: 0)
+(Hester shakes, gain: 0.1)
+(tutorial message: Press <color=red>Cancel</color> to interrupt!)
+HESTER
+Wait, ma'am. We ain't got no parents, no food, no nothin'. *cough* *cough*
+(interrupt: That's right!, scene: cough_acting)
+(clear tutorial message)
+
+LORENA
+I wish I could help, but I have an urgent matter to attend to.
+
+(Hester looks psy)
+HESTER
+Are you sure? What could be more important than <i>starving children</i>?
+
+LORENA
+I... (Hester is using her psychic powers to influence Lorena. Use energy to help her out!)
+(decision: psy_battle_Lorena)
+(exit all)
+
+NARRATOR
+Your merry band of urchins skurries out of the shop and into a nearby alley.
+
+(Enter Hester center)
+HESTER
+So <i>that's</i> what it's like to touch another mind...
+
+(Enter Nora right)
+NORA
+It's like playing tug-of-war...
+
+(Enter Stephen left background)
+STEPHEN
+It's tiring...
+
+(Enter Harland left)
+HARLAND
+Can't wait to see what kind of mischief we can make with this!
+
+(scene: escape_scene)
+(curtains)
+
+--- cough_acting ---
+(clear tutorial message)
+(show player stats: cunning)
+//($active_player.signal = Cunning up!)
+($active_player.cunning +% 15)
+ACTIVE PLAYER
+And these fevers all the time... Poor Hester's been getting chills, too!
+
+(Hester squishes, wait time: 0, amount: 0.6)
+HESTER
+What are we gonna do...?
+
+(hide player stats)
+
+[[psy_battle_Lorena]] (type: lottery, currency: energy)
+Give the kids some money
+	(Lorena looks entranced)
+	LORENA
+	I...
+	You know what? I could spare something. Here you are.
+	($players.money += 12 / $_player_count)
+	NARRATOR
+	The woman holds out a handful of coins. You snatch it away eagerly.
+
+	(Hester shakes, wait time = 0)
+	(Hester looks normal)
+	HESTER
+	*cough* Thank you very much, madam. Maybe we'll be able to get through the winter afterall.
+
+	(Lorena looks normal)
+	LORENA
+	May you, indeed. Now, may I have a pastry please?
+
+	HELEN
+	Sure thing, ma'am!
+	(exit Lorena)
+Let's get them medicine.
+	(Lorena looks entranced)
+	LORENA
+	That's just so horrible...
+
+	(Lorena looks normal)
+	You know what? I just passed a chemist on the way here. I'll be back!
+	(important)
+	(exit Lorena)
+
+	(Hester looks normal)
+	HESTER
+	Hey, what'd you do that for? She had money to give us!
+
+	(Enter Stephen center)
+	STEPHEN
+	Who knows? We might need some medicine in the future!
+
+What if we found them a home?
+	(Lorena looks entranced)
+	LORENA
+	Uh, I...
+
+	(Lorena looks normal)
+	Hey! This city <i>has</i> to have an orphanage! I've been all over the world, and have yet to find a city without one!
+	(important)
+	(exit Lorena)
+
+	(Hester looks normal)
+
+	HELEN
+	Well, that's never happened before... Odd woman, that one.
+
+Children are the future. Have all my money! (limit: 1)
+	(Lorena looks entranced)
+	LORENA
+	I...
+	You know what? I've spent too much time and money thinking about myself!
+
+	(Lorena looks normal)
+	It's high time I put others before myself. Here, kids. Start a new life!
+	(important)
+	($players.money += 200 / $_player_count)
+	(exit Lorena)
+	(Hester looks normal)
+
+	NARRATOR
+	The woman hands you a bag full of gold pieces and walks outside, arms outstretched
+	She does a little turn, laughs, and takes a breath of air - which seems somehow fresher with her burden of riches lifted.
+	You divide the money between yourselves.
+
+	HESTER
+	Well that went well!
+
+I'll be leaving now... (type: failure, bad tickets: 2)
+	LORENA
+	<i>Bless you, children, but I must be going.</i>
+	(exit Lorena)
+
+	(Hester looks normal)
+	HESTER
+	Aw...
+
+--- escape_scene ---
+(music: gem_popper)
+NARRATOR
+Just then a commotion starts from across the street. 
+A man is shouting to a police officer and pointing in your general direction. "Thief!" he yells.
+The policeman spots your group and begins to advance, baton in hand.
+(Harland blushes)
+
+HARLAND
+Well, looks like it's time to move them legs!
+(exit Harland)
+
+STEPHEN
+Run!
+(exit all)
+
+NARRATOR
+Time slows as you consider your options.
+The alley you're in has a fence you could probably jump, and down the road is a set of pipes that look climbable - they'd never get you on the rooftops.
+On the other hand, you're right next to an abandoned factory. If you can pry open one of the windows you could lose the policeman pretty easily inside...
+It's a bit more risky, but bolting down the street might be the simplest option.
+You'd be out in the open, but wouldn't be expending valuable energy climbing pipes and fences...
+Where to?
+($total_captured = 0)
+(decision: run)
+
+(Enter Harland left)
+(Enter Stephen right)
+(Enter Nora center looking sad)
+
+(branch: captured_check)
+STEPHEN
+Wait a second, where's Hester?
+
+HARLAND
+Did anyone see which way she went?
+
+NORA
+I think I saw her get into a carriage...
+
+(Harland darkens, wait time: 0)
+(Harland squishes)
+HARLAND
+She <i>what</i>?
+
+NORA
+I dunno. She took off down the street and a black carriage pulled right up in front of her.
+(important)
+A man opened the door and held out his hand. I didn't see what happened next. It was all so fast...
+(exit all)
+
+NARRATOR
+Chapter Complete
+This story is still a work in progress, but we hope you've enjoyed your stay in Evanbrook so far.
+Join us soon for more adventures!
+(scene: game_over)
+
+[[captured_check]]
+Nobody captured (show if: $total_captured == 0)
+	HARLAND
+	Whew, we made it!
+
+	NORA
+	Is everyone okay?
+Default
+	NARRATOR
+	$total_captured of you have been captured by the police.
+
+	NORA
+	What are we gonna do?
+
+	HARLAND
+	We'll just have to bust them out!
+
+[[run]] (type: poll, show stats: energy, timer: 15)
+Streets
+	($active_player.hiding_quality = 30)
+	NARRATOR
+	($active_player.name takes off down the street.)
+	($cop_roll = random(1,100))
+	(branch: capture_check)
+
+Fence [1 energy]
+	(branch: fence_energy_check)
+	($cop_roll = random(1,100))
+	(branch: capture_check)
+Factory [3 energy]
+	(branch: factory_energy_check)
+	($cop_roll = random(1,100))
+	(branch: capture_check)
+Pipes [4 energy]
+	(branch: pipe_energy_check)
+	($cop_roll = random(1,100))
+	(branch: capture_check)
+
+[[capture_check]]
+Caught (show if: $cop_roll > $active_player.hiding_quality)
+	NARRATOR
+	The officer catches up! $active_player.name is taken away.
+
+	($active_player.name: NO!)
+	($active_player.captured = true)
+	($total_captured += 1)
+Escaped
+	NARRATOR
+	The inspector loses them.
+	($active_player.captured = false)
+
+[[fence_energy_check]]
+Not enough energy (show if: $active_player.energy < 1)
+	NARRATOR
+	$active_player.name tries to climb the fence, but is too weak!
+	($active_player.hiding_quality = 0)
+Default
+	NARRATOR
+	$active_player.name clears the fence in the alley way and runs!
+	($active_player.energy -= 1)
+	($active_player.hiding_quality = 50)
+
+[[factory_energy_check]]
+Not enough energy (show if: $active_player.energy < 3)
+	NARRATOR
+	$active_player.name tries to pry a window open, but is too weak!
+	($active_player.hiding_quality = 0)
+Default
+	NARRATOR
+	$active_player.name pries a window open and disappears into the factory!
+	($active_player.energy -= 3)
+	($active_player.hiding_quality = 80)
+
+[[pipe_energy_check]]
+Not enough energy (show if: $active_player.energy < 4)
+	NARRATOR
+	$active_player.name tries to climb the pipes, but is too weak!
+	($active_player.hiding_quality = 0)
+Default
+	NARRATOR
+	$active_player.name scrambles up to the rooftops and watches the drama playing out below.
+	($active_player.energy -= 4)
+	($active_player.hiding_quality = 100)
+
+--- game_over ---
+(clear)
+(clear scene)
+NARRATOR
+Portrait art: IICharacter Alpha and KH Mix
+Backgrounds: Jordan Trudgett
+Music: opengameart.org's syncopika, Mopz
+(clear all)
+(music: off)
+(hide_GUIs)
+(curtains)
+(decision: game_select)

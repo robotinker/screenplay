@@ -1,0 +1,40 @@
+STATS
+current_answer = 0
+current_answer_text = none
+current_player = none
+current_correct_guesses = 0
+round_points = 1
+round = 1
+
+DEFAULT PLAYER STATS
+Score = 1
+stored_answer = 0.0
+current_answer_text = none
+guess = 0.0
+guess1Count = 0.0
+guess2Count = 0.0
+guess3Count = 0.0
+guess4Count = 0.0
+
+STATS VISIBLE DURING CHARACTER SELECTION
+
+GAME STATS VISIBLE ON PAUSE SCREEN
+
+PLAYER STATS VISIBLE ON PAUSE SCREEN
+Score
+
+PLAYABLE CHARACTERS
+
+CHARACTERS
+Elana
+	Color = green
+	Vocal pitch = 1.7
+	Poses
+		normal = host_normal
+			times = 2, 0.1
+			loop_frame = 0
+		happy = host_happy
+		shocked = host_shocked
+		excited = host_excited
+			times = 2, 0.1
+			loop_frame = 0

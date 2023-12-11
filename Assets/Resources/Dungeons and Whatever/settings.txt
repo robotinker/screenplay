@@ -1,0 +1,49 @@
+STORY SETTINGS
+player count = 2-4
+save mode = overwrite
+pause every line = false
+show story recap = false
+use speech bubbles = false
+hide barred choices = true
+
+GUI SETTINGS
+GUI base alpha = 0.8
+white text threshold = 1.5
+nameplate slide = false
+speaker pulse = true
+narrator bg color = white
+narrator font style = italic
+character bg color = 0.45, 0.5, 1
+type in = true
+characters per second = 30
+font = DeadSecretary
+
+GRAPHICS
+title screen = dungeon
+cursor = cursor
+windrose = windrose
+stat box = default_box
+name plate = default_box
+character dialogue box = default_box
+narrator dialogue box = default_box
+bad bid token = bad_bid
+dialogue progression arrow = progression arrow 1
+spinner wedge = wedge20th
+spinner hand = spinner hand 3
+password pip = resource_AC
+
+SOUNDS
+title music = magic3
+allocate = allocate
+unallocate = unallocate
+move cursor = move_cursor
+confirm = confirm
+cancel = cancel
+player joining = chime1
+player drop in = player_enter
+player drop out = player_leaving
+switch character = silent
+approve dialogue progression = bubble_magic
+progress dialogue = plink_approve
+spinner tie break = spinner
+save = bubble_magic

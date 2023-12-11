@@ -1,0 +1,29 @@
+STATS
+chased = 0
+progress = 0.1
+
+DEFAULT PLAYER STATS
+rage = 0
+stealth = 0
+charm = 0
+
+STATS VISIBLE DURING CHARACTER SELECTION
+
+
+GAME STATS VISIBLE ON PAUSE SCREEN
+
+PLAYER STATS VISIBLE ON PAUSE SCREEN
+rage
+stealth
+charm
+
+PLAYABLE CHARACTERS
+
+
+CHARACTERS
+Genie
+	Color = 0.5, 0.9, 0.8
+	Poses
+		normal = girl normal
+		shocked = girl surprised
+		final = girl final

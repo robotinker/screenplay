@@ -1,0 +1,136 @@
+STATS
+
+DEFAULT PLAYER STATS
+LVL = 1
+EXP = 0
+MaxHP = 15
+HP = 15
+attack = 1
+damage = 5
+WP_DMG = 0.0
+WP_ATT = 0.0
+AC = 7
+ARM_AC = 0.0
+gold = 10
+weapon = dagger
+armor = none
+hurt = 0.0
+drained = 0.0
+agro = 0.0
+Health = 15/15
+SP = 2
+MaxSP = 2
+Magic = 2/2
+Class = None
+
+STATS VISIBLE DURING CHARACTER SELECTION
+Class
+
+GAME STATS VISIBLE ON PAUSE SCREEN
+
+PLAYER STATS VISIBLE ON PAUSE SCREEN
+LVL
+Health
+Magic
+weapon
+armor
+gold
+
+PLAYABLE CHARACTERS
+Casey
+Azrael
+Finn
+Meduin
+Tabbitha
+
+CHARACTERS
+Inn Keeper
+	Color = yellow
+	Vocal pitch = 0.5
+	Poses
+		normal = OlderSister
+Spirit
+	Color = green
+	Poses
+		normal = spirit
+Bat
+	Color = white
+	Poses
+		normal = bat
+
+Floating Eye
+	Color = white
+	Poses
+		normal = floating eye
+Tooth Worm
+	Color = white
+	Poses
+		normal = tooth worm
+Iron Beetle
+	Color = white
+	Poses
+		normal = iron beetle
+		
+Fear Itself
+	Color = black
+	Poses
+		normal = fear itself
+Casey
+	Color = white
+	Stats
+		Class = Paladin
+		HP = 20
+		MaxHP = 20
+		AC = 5
+	Entry phrase = Evil beware!
+	Poses
+		normal = Player1
+
+Azrael
+	Color = blue
+	Vocal pitch = 0.7
+	Stats
+		Class = Fighter
+		damage = 7
+		AC = 5
+	Entry phrase = Tremble before my might!
+	Poses
+		normal = Player3
+
+Finn
+	Color = yellow
+	Vocal pitch = 1.3
+	Stats
+		Class = Thief
+		AC = 9
+		damage = 3
+	Entry phrase = Hey guys, wait for me!
+	Poses
+		normal = Player4
+
+Meduin
+	Color = cyan
+	Vocal pitch = 0.8
+	Stats
+		Class = Hunter
+		attack = 4
+		HP = 12
+		MaxHP = 12
+	Entry phrase = May the path be made plain before me.
+	Poses
+		normal = Lover
+		
+Tabbitha
+	Color = red
+	Vocal pitch = 0.9
+	Stats
+		Class = Mage
+		SP = 3
+		MaxSP = 3
+		HP = 12
+		MaxHP = 12
+		AC = 5
+		damage = 2
+	Entry phrase = Light, guide me.
+	Poses
+		normal = Mage

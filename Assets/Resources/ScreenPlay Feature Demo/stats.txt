@@ -1,0 +1,124 @@
+STATS
+park_dest = blah
+park_bg = blah
+school_progress_left = 5
+prison_progress_left = 8
+
+DEFAULT PLAYER STATS
+money = 3
+time = 0
+happy = 0.2
+rested = 0.3
+smart = 0.2
+outfit = grubby clothes
+
+
+STATS VISIBLE DURING CHARACTER SELECTION
+
+
+GAME STATS VISIBLE ON PAUSE SCREEN
+
+PLAYER STATS VISIBLE ON PAUSE SCREEN
+money
+happy
+rested
+smart
+outfit
+
+PLAYABLE CHARACTERS
+Casey
+Meduin
+Finn
+Olivia
+Azrael
+Tabbitha
+
+CHARACTERS
+Casey
+	Color = white
+	Stats
+		weapon = long sword
+	Entry phrase = Evil beware!
+	Poses
+		normal = Player1
+
+Azrael
+	Color = blue
+	Stats
+		weapon = broad sword
+	Entry phrase = Tremble before my might!
+	Poses
+		normal = Player3
+
+Finn
+	Color = yellow
+	Stats
+		weapon = dagger
+	Entry phrase = Hey, where's the party at?
+	Poses
+		normal = Player4
+
+Meduin
+	Color = cyan
+	Stats
+		weapon = elven rapier
+	Entry phrase = May the path be made plain before me.
+	Poses
+		normal = Lover
+
+Tabbitha
+	Color = red
+	Entry phrase = Light, guide me.
+	Poses
+		normal = Mage
+	Stats
+		weapon = fire magic
+
+Olivia
+	Color = magenta
+	Poses
+		normal = Dispatcher
+	Entry phrase = Let's do this!
+	Stats
+		weapon = rapier
+
+Landra
+	Color = green
+	Poses
+		normal = OlderSister
+
+Ora
+	Color = 0.4, 1, 0.3
+	Poses
+		normal = YoungerSister
+
+Erika
+	Color = black
+	Poses
+		normal = Player2
+		normal_L = Player2 L
+
+Kendra
+	Color = blue
+	Poses
+		normal = Player3
+		
+King
+	Color = white
+	Poses
+		normal = Dad
+
+Marcus
+	Color = yellow
+	Poses
+		normal = Player4
+
+Oliver
+	Color = white
+	Poses
+		normal = PeaceKeeper
+		
+Theorah
+	Color = red
+	Poses
+		normal = FlareFemaleHero3

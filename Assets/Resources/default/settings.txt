@@ -1,0 +1,40 @@
+STORY SETTINGS
+player count = 1-4
+
+GUI SETTINGS
+GUI base alpha = 0.8
+white text threshold = 1.5
+nameplate slide = false
+speaker pulse = true
+narrator bg color = white
+narrator font style = italic
+character bg color = 0.45, 0.5, 1
+font = Arial.ttf
+
+GRAPHICS
+cursor = cursor
+windrose = windrose
+stat box = default_box
+name plate = default_box
+character dialogue box = default_box
+narrator dialogue box = default_box
+bad bid token = bad_bid
+dialogue progression arrow = progression arrow 1
+spinner wedge = wedge20th
+spinner hand = spinner hand 2
+title screen = stage-curtains-backdrop
+
+SOUNDS
+allocate = allocate
+unallocate = unallocate
+move cursor = move_cursor
+confirm = confirm
+cancel = cancel
+player joining = player_joining
+player drop in = player_joined2
+player drop out = player_leaving
+switch character = swap_char
+approve dialogue progression = bubble_magic
+progress dialogue = plink_approve
+spinner tie break = spinner
+save = bubble_magic

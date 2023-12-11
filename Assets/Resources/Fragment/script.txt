@@ -1,0 +1,239 @@
+(music: opening)
+(background: space)
+
+(Enter Genie center)
+NARRATOR
+A.I - Genie.
+Yours.
+Won't snitch.
+
+(exit Genie)
+Giving her skin.
+Company evil enough to use.
+What for?
+(decision: motive)
+Biding.
+Time.
+(chapter: Infiltration)
+(decision: entry_method)
+
+[[motive]](type: passthrough)
+Company collapse (per vote: $active_player.rage += 1)
+Covert gains (per vote: $active_player.stealth += 1)
+Her freedom (per vote: $active_player.charm += 1)
+
+[[entry_method]]
+Charm insider (per vote: $active_player.charm += 1)
+	(music: main)
+	Drinks. Laughter. Touch. A drive.
+	(background: city night)
+
+	Heat.
+	Breath.
+	(Enter Genie left)
+	Forged dismissal notice
+	
+	GENIE
+	You're welcome.
+	(exit Genie)
+	
+	NARRATOR
+	Before sunrise.
+	(scene: mainframe)
+Breach by night (per vote: $active_player.stealth += 1)
+	(music: main)
+	(curtains)
+	(background: city night)
+
+	Darkness. Twist. Click.
+	Beeping.
+	(Enter Genie left)
+	No beeping
+	
+	GENIE
+	You're welcome.
+	(exit Genie)
+	(scene: mainframe)
+
+--- mainframe ---
+(chapter: Investigation)
+NARRATOR
+Wires. Data wash. Euphoria.
+Secrets... 
+Millionaires. Human minds awaiting robotic bodies.
+Reversal?
+(screen flashes)
+Shuffling. A light.
+(screen shakes, duration: 0.2)
+Shouting and orders
+(chapter: Discovered)
+(decision: guard_problems)
+
+[[guard_problems]]
+Neutralize (per vote: $active_player.rage += 1)
+	Impact. Bodies entangled.
+	A gasp.
+	Stillness.
+	(Enter Genie left)
+	Locks disengaged.
+	
+	GENIE
+	You're welcome.
+	(exit Genie)
+	(scene: door)
+Impersonate (per vote: $active_player.charm += 1)
+	(branch: impersonation_test)
+	(scene: door)
+
+[[impersonation_test]]
+Success (show if: Avg.charm > 1)
+	NARRATOR
+	Raised brow...
+	Ease.
+	Back. A map. Hall.
+Failure
+	Inquiry. Panic. Pursuit.
+	Labyrinth. Heart pounding. Silence.
+	(Enter Genie left)
+	Locks disengaged.
+	GENIE
+	You're welcome.
+	(exit Genie)
+	($chased = 1)
+
+--- door ---
+(chapter: Dawning)
+NARRATOR
+Floating bodies.
+Terrifying. Perfect.
+(branch: chase_test)
+(decision: choose_body)
+
+[[chase_test]]
+chased (show if: $chased == 1)
+	(screen flashes)
+	Guard again.
+	Unseen.
+not chased
+	Healthy subject. Mindless.
+	(screen flashes)
+	Lights on. No time!
+
+[[choose_body]]
+Push (show if: $chased == 1, per vote: $active_player.rage += 1)
+	($hide = true)
+	(screen shakes)
+	Yelp. Wisps.
+	Vacancy.
+	(scene: manifest)
+Step in
+	(Enter Genie at center who looks shoked)
+	NARRATOR
+	Final program
+	
+	GENIE
+	Thank you...
+	
+	NARRATOR
+	Chill. Drift.
+	Envelopment.
+	(scene: be_free)
+Manifest Genie
+	(scene: manifest)
+
+--- manifest ---
+(chapter: Awakening)
+(Enter Genie at center who looks final)
+
+NARRATOR
+Gurgling. Consciousness.
+(curtains)
+Window. Diving. Rest.
+(background: space)
+Orders...
+($death_toll = 0)
+(decision: orders)
+
+[[orders]]
+Strike
+	(scene: strike_description)
+Exploit
+	NARRATOR
+	Steady money stream. All you need.
+	(branch: leach_test)
+	(scene: game_over)
+Be free
+	(scene: be_free)
+
+--- strike_description ---
+(chapter: Burning)
+(branch: strike_test)
+
+NARRATOR
+Corporate collapse. Uncaught.
+($death_toll += 1)
+(branch: death_toll_description)
+Orders?
+(decision: continue_strike)
+
+[[death_toll_description]]
+1 (show if: $death_toll == 1)
+	The corporation has been decimated.
+more
+	$death_toll corporations decimated.
+
+[[continue_strike]]
+More (per vote: $active_player.rage += 1)
+	(scene: strike_description)
+Be free
+	(scene: be_free)
+
+[[strike_test]]
+Devastation (show if: $Avg.rage > 2)
+	NARRATOR
+	Devastation.
+Default
+	NARRATOR
+	Fire and explosions. 
+
+[[leach_test]]
+success (show if: $Avg.stealth > 1)
+	You are free.
+failure
+	Genie caught.
+	Still untraceable.
+
+--- be_free ---
+(curtains)
+(background: space)
+(Enter Genie to center who looks final)
+The genie is free.
+(branch: rage_test)
+(curtains)
+(scene: game_over)
+
+[[rage_test]]
+Suicide (show if: $Avg.rage > 2)
+	(music: bad)
+	(exit Genie)
+	A fire that burns itself out.
+	Curtains.
+Terror (show if: $Avg.rage > 1)
+	(music: bad)
+	More follow. Terror is wrought.
+Love
+	(music: good)
+	She wanders and loves and lives.
+	She is real.
+
+--- game_over ---
+(clear)
+(clear scene)
+NARRATOR
+Portrait art: IICharacter Alpha and KH Mix
+Backgrounds: opengameart.org's Scribe and ansimuz
+Music: opengameart.org's Zander Noriega, oyvind, VividReality, and BossLevelVGM
+(music: off)
+(hide_GUIs)
+(curtains)
+(decision: game_select)

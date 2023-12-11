@@ -1,0 +1,688 @@
+﻿(scene: start)
+
+--- start ---
+($bidding_explained = false)
+(White Sands Day Night plays)
+(background: ShowRoom)
+
+(Enter Elana to stage center)
+
+ELANA
+Please welcome today's contestants on What They Said, the game show where we quiz you about your FRIEEEEENDZ!!! <3 :D <3
+(branch: player_count_check)
+
+[[ player_count_check ]]
+Not enough (show if: $_player_count < 2)
+	You're going to need more than one player for this game!
+	Ready?
+	(pause)
+	(branch: player_count_check)
+Ready
+	Alright! Let's begin!!! <3 :D <3
+	(pause)
+	(lock characters)
+	(scene: main)
+
+--- main ---
+ELANA
+(Elana looks excited)
+We've got a very special game planned for you today!
+We're gonna figure out just how well you know each other!
+I'm gonna start by asking a question, which each of you will answer <i>secretly</i>...
+Then each of you will have a chance to guess what you thought the other people said!
+(Elana looks happy)
+Each correct guess will get you a point!
+(Elana looks normal)
+We'll do 3 rounds of 3 questions each.
+(Elana looks happy)
+
+($leisure_used = false)
+($philosophy_used = false)
+($personality_used = false)
+($goals_used = false)
+($imagination_used = false)
+($taste_used = false)
+($a_taste_used = false)
+($activity_used = false)
+
+Okay? HERE WE GO!
+($round = 1)
+($round_points = 1)
+(scene: category scene)
+(Elana looks happy)
+That's it for Round 1!
+You're all doing great, but $pMax.Score is in the lead with $Max.Score points!
+(Elana looks normal)
+Sadly, $pMin.Score is in last place with $Min.Score ...
+
+(Elana looks happy)
+($round = 2)
+($round_points = 2)
+But that's okay, because this round, each question is worth $round_points points!
+(scene: category scene)
+So much for Round 2!
+Okay, so $pMax.Score is currently in the lead with $Max.Score points, but it's still anyone's game!
+Even $pMin.Score could win, and they only have $Min.Score points! :P
+
+($round = 3)
+($round_points = 3)
+(Elana looks excited)
+(n-Dimensions plays)
+IT'S TIME FOR THE FINAL ROUND!!! XD
+Every question is now worth $round_points points!
+(Elana looks normal)
+(scene: category scene)
+(scene: Finale)
+
+--- category scene ---
+What category should we use for Round $round ?
+(decision: category choice)
+(scene: $current_category)
+
+[[ category choice ]] (type: spinner, wrap count: 4, random order: false)
+Personality (show if: $personality_used == false)
+	($personality_used = true)
+	($current_category = personality)
+Leisure (show if: $leisure_used == false)
+	($leisure_used = true)
+	($current_category = leisure)
+Philosophy (show if: $philosophy_used == false)
+	($philosophy_used = true)
+	($current_category = philosophy)
+Goals (show if: $goals_used == false)
+	($goals_used = true)
+	($current_category = goals)
+Imagination (show if: $imagination_used == false)
+	($imagination_used = true)
+	($current_category = imagination)
+Taste (show if: $taste_used == false)
+	($taste_used = true)
+	($current_category = taste)
+Style (show if: $a_taste_used == false)
+	($a_taste_used = true)
+	($current_category = also taste)
+Activity (show if: $activity_used == false)
+	($activity_used = true)
+	($current_category = activity)
+
+[[ guess branch ]] (type: per player)
+Default
+	Alright, so what did $active_player.name say?
+	($current_answer = $active_player.stored_answer)
+	($current_answer_text = $active_player.current_answer_text)
+	($current_player = $active_player.name)
+	($current_correct_guesses = 0)
+	(decision: $current_guess_branch_name)
+	(branch: score check)
+	(branch: host comment)
+
+[[ bid guess branch ]] (type: per player)
+Default
+	Alright, so what did $active_player.name say?
+	(branch: store scores)
+	($current_answer = $active_player.stored_answer)
+	($current_answer_text = $active_player.current_answer_text)
+	($current_player = $active_player.name)
+	($current_correct_guesses = 0)
+	(decision: $current_guess_branch_name)
+	(branch: bid score check)
+	(branch: host comment)
+
+[[ bid score check ]] (type: per player)
+Correct [1] (show if: $active_player.name != $current_player && $current_answer == 1 && $active_player.guess1Count > 0)
+	($current_correct_guesses += $active_player.guess1Count)
+	($active_player.Score += $active_player.guess1Count * 2)
+Correct [2] (show if: $active_player.name != $current_player && $current_answer == 2 && $active_player.guess2Count > 0)
+	($current_correct_guesses += $active_player.guess2Count)
+	($active_player.Score += $active_player.guess2Count * 2)
+Correct [3] (show if: $active_player.name != $current_player && $current_answer == 3 && $active_player.guess3Count > 0)
+	($current_correct_guesses += $active_player.guess3Count)
+	($active_player.Score += $active_player.guess3Count * 2)
+Correct [4] (show if: $active_player.name != $current_player && $current_answer == 4 && $active_player.guess4Count > 0)
+	($current_correct_guesses += $active_player.guess4Count)
+	($active_player.Score += $active_player.guess4Count * 2)
+Incorrect
+
+[[ score check ]] (type: per player)
+Correct (show if: $active_player.name != $current_player && $active_player.guess == $current_answer)
+	($current_correct_guesses += 1)
+	($active_player.Score += $round_points)
+Incorrect
+
+[[ host comment ]]
+Someone got it (show if: $current_correct_guesses > 0)
+	Good job! It was $current_answer_text !
+Nobody git it
+	Nope! $current_player chose $current_answer_text !
+
+[[ explain bidding ]]
+Explain (show if: $bidding_explained == false)
+	This one will be a little different, so heads up!
+	(scene: bidding explanation)
+	(clear tutorial message)
+Don't explain
+
+[[ store scores ]] (type: per player)
+Default
+	($active_player.guess1Count = 0.0)
+	($active_player.guess2Count = 0.0)
+	($active_player.guess3Count = 0.0)
+	($active_player.guess4Count = 0.0)
+
+--- bidding explanation ---
+($bidding_explained = true)
+(clear tutorial message)
+The last question of every round will let you bet on the answers you think are correct.
+The catch is that you'll be betting with your own score!
+So if you bid 3 on an answer and get it right, you'll earn 3 points!
+(pause)
+(Elana looks shocked)
+But if you get the answer wrong, you'll lose the 3 points you used to bet with!
+(pause)
+(Elana looks excited)
+(tutorial message: Press <color=red>Cancel</color> to repeat the instructions)
+Everyone got it?
+(pause)
+(interrupt: No!, scene: bidding explanation)
+
+[[ color_flashes ]] (type: per player)
+Default
+	(screen flashes, color: $active_player.current_answer_text)
+
+--- taste ---
+(Elana looks normal)
+Which of these colors is your favorite?
+(decision: color)
+($current_guess_branch_name = color guess)
+(branch: guess branch)
+(Elana looks excited)
+Here are some colors, just for you! ;D
+(branch: color_flashes)
+(Elana looks normal)
+
+What's your favorite flavor of ice cream?
+(decision: ice cream)
+($current_guess_branch_name = ice cream guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+If you could have just one pet, what would it be?
+(decision: pet)
+($current_guess_branch_name = pet guess)
+(branch: bid guess branch)
+
+--- personality ---
+(Elana looks normal)
+If you were an animal, which one would you be?
+(decision: animal)
+($current_guess_branch_name = animal guess)
+(branch: guess branch)
+
+What's your favorite season?
+(decision: season)
+($current_guess_branch_name = season guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+You were just accepted into Hogwarts! Which house do you think you'd be sorted into?
+(decision: wizard school)
+($current_guess_branch_name = wizard school guess)
+(branch: bid guess branch)
+
+[[ ice cream ]] (type: hidden poll, random order: false)
+Vanilla (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = vanilla)
+Strawberry (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = strawberry)
+Chocolate (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = chocolate)
+Peppermint (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = peppermint)
+
+[[ ice cream guess ]] (type: poll, player test: name != $current_player)
+Vanilla (per vote: $active_player.guess = 1)
+Strawberry (per vote: $active_player.guess = 2)
+Chocolate (per vote: $active_player.guess = 3)
+Peppermint (per vote: $active_player.guess = 4)
+
+[[ wizard school ]] (type: hidden poll)
+Gryffindor (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = Gryffindor)
+Hufflepuff (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = Hufflepuff)
+Ravenclaw (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = Ravenclaw)
+Slytherin (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = Slytherin)
+
+[[ wizard school guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Gryffindor (per vote: $active_player.guess1Count += 1)
+Hufflepuff (per vote: $active_player.guess2Count += 1)
+Ravenclaw (per vote: $active_player.guess3Count += 1)
+Slytherin (per vote: $active_player.guess4Count += 1)
+
+[[ color ]] (type: hidden poll)
+Red (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = red)
+Green (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = green)
+Blue (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = blue)
+Yellow (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = yellow)
+
+[[ color guess ]] (type: poll, player test: name != $current_player)
+Red (per vote: $active_player.guess = 1)
+Green (per vote: $active_player.guess = 2)
+Blue (per vote: $active_player.guess = 3)
+Yellow (per vote: $active_player.guess = 4)
+
+[[ animal ]] (type: hidden poll)
+Eagle (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = eagle)
+Bear (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = bear)
+Rat (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = rat)
+Pig (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = pig)
+
+[[ animal guess ]] (type: poll, player test: name != $current_player)
+Eagle (per vote: $active_player.guess = 1)
+Bear (per vote: $active_player.guess = 2)
+Rat (per vote: $active_player.guess = 3)
+Pig (per vote: $active_player.guess = 4)
+
+[[ season ]] (type: hidden poll)
+Summer (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = summer)
+Fall (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = fall)
+Winter (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = winter)
+Spring (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = spring)
+
+[[ season guess ]] (type: poll, player test: name != $current_player)
+Summer (per vote: $active_player.guess = 1)
+Fall (per vote: $active_player.guess = 2)
+Winter (per vote: $active_player.guess = 3)
+Spring (per vote: $active_player.guess = 4)
+
+--- activity ---
+(Elana looks normal)
+(screen flashes, attack: 0.2, duration: 4, wait time:0)
+Look at how great the weather is! What would you rather go do?
+(decision: outdoor)
+($current_guess_branch_name = outdoor guess)
+(branch: guess branch)
+
+(screen flashes, color: 0.2; 0.2; 0.4, wait time: 0)
+Oh no, it's raining! Oh well - night out on the town! Where to?
+(decision: indoor)
+($current_guess_branch_name = indoor guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+If you were to buy a house, where would it be?
+(decision: house)
+($current_guess_branch_name = house guess)
+(branch: bid guess branch)
+
+--- leisure ---
+(Elana looks normal)
+
+What kind of music would you rather listen to?
+(decision: music)
+($current_guess_branch_name = music guess)
+(branch: guess branch)
+
+What kind of food would you rather eat RIGHT NOW???
+(decision: food)
+($current_guess_branch_name = food guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+Holy cow, you have a 1-week all-expenses-paid vacation to one of these places - which one would you rather go to?
+(decision: travel)
+($current_guess_branch_name = travel guess)
+(branch: bid guess branch)
+
+[[ music ]] (type: hidden poll)
+Classical (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = classical music)
+Pop (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = pop)
+Rock (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = rock)
+Techno (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = techno)
+
+[[ music guess ]] (type: poll, player test: name != $current_player)
+Classical (per vote: $active_player.guess = 1)
+Pop (per vote: $active_player.guess = 2)
+Rock (per vote: $active_player.guess = 3)
+Techno (per vote: $active_player.guess = 4)
+
+[[ food ]] (type: hidden poll)
+Pizza (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = pizza)
+Burgers (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = burgers)
+Stir Fry (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = stir fry)
+Salad (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = salad)
+
+[[ food guess ]] (type: poll, player test: name != $current_player)
+Pizza (per vote: $active_player.guess = 1)
+Burgers (per vote: $active_player.guess = 2)
+Stir Fry (per vote: $active_player.guess = 3)
+Salad (per vote: $active_player.guess = 4)
+
+[[ outdoor ]] (type: hidden poll)
+Hike (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = hiking)
+Frisbee (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = play frisbee)
+Beach Trip (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = take a trip to the beach)
+Fishing (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = go fishing)
+
+[[ outdoor guess ]] (type: poll, player test: name != $current_player)
+Hike (per vote: $active_player.guess = 1)
+Frisbee (per vote: $active_player.guess = 2)
+Beach Trip (per vote: $active_player.guess = 3)
+Fishing (per vote: $active_player.guess = 4)
+
+[[ indoor ]] (type: hidden poll)
+Comedy club (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = comedy club)
+Dance club (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = dance club)
+Arcade (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = arcade)
+Formal restaurant (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = restaurant)
+
+[[ indoor guess ]] (type: poll, player test: name != $current_player)
+Comedy club (per vote: $active_player.guess = 1)
+Dance club (per vote: $active_player.guess = 2)
+Arcade (per vote: $active_player.guess = 3)
+Formal restaurant (per vote: $active_player.guess = 4)
+
+
+[[ travel ]] (type: hidden poll)
+Alaska (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = Alaska)
+Hawaii (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = Hawaii)
+Paris (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = Paris)
+Egypt (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = Egypt)
+
+[[ travel guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Alaska (per vote: $active_player.guess1Count += 1)
+Hawaii (per vote: $active_player.guess2Count += 1)
+Paris (per vote: $active_player.guess3Count += 1)
+Egypt (per vote: $active_player.guess4Count += 1)
+
+--- goals ---
+(Elana looks normal)
+
+What is your ideal number of children?
+(decision: children)
+($current_guess_branch_name = children guess)
+(branch: guess branch)
+
+If you could do one of these in the next 5 years, what would you rather do?
+(decision: goal)
+($current_guess_branch_name = goal guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+If you could do one of these for a living, which would it be?
+(decision: job)
+($current_guess_branch_name = job guess)
+(branch: bid guess branch)
+
+[[ pet ]] (type: hidden poll)
+Dog (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = a dog)
+Cat (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = a cat)
+Bird (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = a bird)
+Mouse (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = a mouse)
+
+[[ pet guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Dog (per vote: $active_player.guess1Count += 1)
+Cat (per vote: $active_player.guess2Count += 1)
+Bird (per vote: $active_player.guess3Count += 1)
+Mouse (per vote: $active_player.guess4Count += 1)
+
+[[ house ]] (type: hidden poll)
+City (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = in the city)
+Suburbs (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = in the suburbs)
+Small Town (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = in a small town)
+Countryside (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = in the countryside)
+
+[[ house guess ]] (type: shop, currency: Score, player test: name != $current_player)
+City (per vote: $active_player.guess1Count += 1)
+Suburbs (per vote: $active_player.guess2Count += 1)
+Small Town (per vote: $active_player.guess3Count += 1)
+Countryside (per vote: $active_player.guess4Count += 1)
+
+[[ children ]] (type: hidden poll)
+0 (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = 0)
+1 (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = 1)
+2 (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = 2)
+5 (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = 5)
+
+[[ children guess ]] (type: poll, player test: name != $current_player)
+0 (per vote: $active_player.guess = 1)
+1 (per vote: $active_player.guess = 2)
+2 (per vote: $active_player.guess = 3)
+5 (per vote: $active_player.guess = 4)
+
+[[ goal ]] (type: hidden poll)
+Shoot a movie (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = to shoot a movie)
+Write a book (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = to write a book)
+Finish a degree (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = to finish a degree)
+See the world (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = to see the world)
+
+[[ goal guess ]] (type: poll, player test: name != $current_player)
+Shoot a movie (per vote: $active_player.guess = 1)
+Write a book (per vote: $active_player.guess = 2)
+Finish a degree (per vote: $active_player.guess = 3)
+See the world (per vote: $active_player.guess = 4)
+
+[[ job ]] (type: hidden poll)
+Architect (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = architect)
+Doctor (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = doctor)
+Lawyer (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = lawyer)
+Writer (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = writer)
+
+[[ job guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Architect (per vote: $active_player.guess1Count += 1)
+Doctor (per vote: $active_player.guess2Count += 1)
+Lawyer (per vote: $active_player.guess3Count += 1)
+Writer (per vote: $active_player.guess4Count += 1)
+
+--- also taste ---
+(Elana looks normal)
+If you could master one of these, which would it be?
+(decision: skill)
+($current_guess_branch_name = skill guess)
+(branch: guess branch)
+
+Which holiday do you like best?
+(decision: holiday)
+($current_guess_branch_name = holiday guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+Which super power would you rather have?
+(decision: superpower)
+($current_guess_branch_name = superpower guess)
+(branch: bid guess branch)
+
+--- philosophy ---
+(Elana looks normal)
+
+Of these, which motivates you most?
+(decision: motivation)
+($current_guess_branch_name = motivation guess)
+(branch: guess branch)
+
+Which of these is most important?
+(decision: values)
+($current_guess_branch_name = values guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+The world would be a better place if everyone were more...
+(decision: change)
+($current_guess_branch_name = change guess)
+(branch: bid guess branch)
+
+[[ holiday ]] (type: hidden poll)
+Independence Day (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = Independence Day)
+Christmas (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = Christmas)
+Halloween (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = Halloween)
+Valentine's Day (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = Valentine's Day)
+
+[[ holiday guess ]] (type: poll, player test: name != $current_player)
+Independence Day (per vote: $active_player.guess = 1)
+Christmas (per vote: $active_player.guess = 2)
+Halloween (per vote: $active_player.guess = 3)
+Valentine's Day (per vote: $active_player.guess = 4)
+
+[[ motivation ]] (type: hidden poll)
+Success (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = success)
+Love (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = love)
+Respect (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = respect)
+Community (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = community)
+
+[[ motivation guess ]] (type: poll, player test: name != $current_player)
+Success (per vote: $active_player.guess = 1)
+Love (per vote: $active_player.guess = 2)
+Respect (per vote: $active_player.guess = 3)
+Community (per vote: $active_player.guess = 4)
+
+[[ skill ]] (type: hidden poll)
+Cooking (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = cooking)
+Kung Fu (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = kung fu)
+Poetry (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = poetry)
+Hunting (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = hunting)
+
+[[ skill guess ]] (type: poll, player test: name != $current_player)
+Cooking (per vote: $active_player.guess = 1)
+Kung Fu (per vote: $active_player.guess = 2)
+Poetry (per vote: $active_player.guess = 3)
+Hunting (per vote: $active_player.guess = 4)
+
+[[ values ]] (type: hidden poll)
+Honesty (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = honesty)
+Bravery (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = bravery)
+Compassion (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = compassion)
+Justice (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = justice)
+
+[[ values guess ]] (type: poll, player test: name != $current_player)
+Honesty (per vote: $active_player.guess = 1)
+Bravery (per vote: $active_player.guess = 2)
+Compassion (per vote: $active_player.guess = 3)
+Justice (per vote: $active_player.guess = 4)
+
+
+[[ change ]] (type: hidden poll)
+Caring (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = caring)
+Creative (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = creativity)
+Cooperative (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = cooperation)
+Determined (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = determination)
+
+[[ change guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Caring (per vote: $active_player.guess1Count += 1)
+Creative (per vote: $active_player.guess2Count += 1)
+Cooperative (per vote: $active_player.guess3Count += 1)
+Determined (per vote: $active_player.guess4Count += 1)
+
+--- imagination ---
+(Elana looks normal)
+
+What do you find yourself dreaming about more often?
+(decision: dream)
+($current_guess_branch_name = dream guess)
+(branch: guess branch)
+
+If you had to choose, which of these would you give up?
+(decision: senses)
+($current_guess_branch_name = senses guess)
+(branch: guess branch)
+
+(Elana looks excited)
+Okay, last question for this round!
+(branch: explain bidding)
+Which of these are you most afraid of?
+(decision: fear)
+($current_guess_branch_name = fear guess)
+(branch: bid guess branch)
+
+[[ superpower ]] (type: hidden poll)
+Flight (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = flight)
+Invisibility (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = invisibility)
+Fire breath (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = fire breath)
+Healing (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = healing)
+
+[[ superpower guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Flight (per vote: $active_player.guess1Count += 1)
+Invisibility (per vote: $active_player.guess2Count += 1)
+Fire breath (per vote: $active_player.guess3Count += 1)
+Healing (per vote: $active_player.guess4Count += 1)
+
+[[ island ]] (type: hidden poll)
+Towel (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = a towel)
+Book (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = a book)
+Stuffed Animal (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = a stuffed animal)
+Matches (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = matches)
+
+[[ island guess ]] (type: poll, player test: name != $current_player)
+Towel (per vote: $active_player.guess = 1)
+Book (per vote: $active_player.guess = 2)
+Stuffed Animal (per vote: $active_player.guess = 3)
+Matches (per vote: $active_player.guess = 4)
+
+[[ dream ]] (type: hidden poll)
+Flying (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = flying)
+Running away (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = running from something)
+Surprise exam (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = surprise exams)
+Losing teeth (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = losing teeth)
+
+[[ dream guess ]] (type: poll, player test: name != $current_player)
+Flying (per vote: $active_player.guess = 1)
+Running away (per vote: $active_player.guess = 2)
+Surprise exam (per vote: $active_player.guess = 3)
+Losing teeth (per vote: $active_player.guess = 4)
+
+[[ senses ]] (type: hidden poll)
+Sight (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = sight)
+Hearing (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = hearing)
+Short-term memory (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = memory)
+Your voice (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = their voice)
+
+[[ senses guess ]] (type: poll, player test: name != $current_player)
+Sight (per vote: $active_player.guess = 1)
+Hearing (per vote: $active_player.guess = 2)
+Short-term memory (per vote: $active_player.guess = 3)
+Their voice (per vote: $active_player.guess = 4)
+
+[[ fear ]] (type: hidden poll)
+Heights (per vote: $active_player.stored_answer = 1; $active_player.current_answer_text = heights)
+Public speaking (per vote: $active_player.stored_answer = 2; $active_player.current_answer_text = public speaking)
+Darkness (per vote: $active_player.stored_answer = 3; $active_player.current_answer_text = darkness)
+The Ocean (per vote: $active_player.stored_answer = 4; $active_player.current_answer_text = the ocean)
+
+[[ fear guess ]] (type: shop, currency: Score, player test: name != $current_player)
+Heights (per vote: $active_player.guess1Count += 1)
+Public speaking (per vote: $active_player.guess2Count += 1)
+Darkness (per vote: $active_player.guess3Count += 1)
+The Ocean (per vote: $active_player.guess4Count += 1)
+
+--- Finale ---
+(music: off)
+(Elana looks happy)
+And the winner is...
+(screen flashes, wait time:0)
+(screen shakes, wait time:0)
+(victory and fanfare plays)
+$pMax.Score with $Max.Score points! Congratulations!
+Join us next time on What They Said!!! <3 <3 <3
+
+NARRATOR
+Portrait art: IICharacter Alpha and KH Mix
+Music: opengameart.org's matthew.pablo and MegaJackie
+Play Again?
+(decision: replay)
+
+[[replay]]
+Yes
+	($players.Score = 0)
+	(scene: start)
+No
+	(music: off)
+	(hide_GUIs)
+	(curtains)
+	(decision: game_select)

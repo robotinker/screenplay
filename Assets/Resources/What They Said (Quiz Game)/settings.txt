@@ -1,0 +1,50 @@
+STORY SETTINGS
+player count = 2-4
+save mode = overwrite
+pause every line = false
+show story recap = false
+use speech bubbles = true
+randomize choices = true
+
+GUI SETTINGS
+GUI base alpha = 0.8
+white text threshold = 1.5
+nameplate slide = false
+new speaker slide = true
+speaker pulse = false
+narrator bg color = gray
+narrator font style = bold
+character bg color = white
+type in = true
+characters per second = 30
+type in sentence pause = 0.1
+characters per type in noise = 3
+
+GRAPHICS
+title screen = ShowRoom
+cursor = cursor
+windrose = windrose
+stat box = default_box
+name plate = speechbox_tail
+character dialogue box = default_box
+narrator dialogue box = default_box
+bad bid token = bad_bid
+dialogue progression arrow = progression arrow 1
+spinner wedge = wedge20th
+spinner hand = spinner hand 2
+
+SOUNDS
+title music = chill piano
+allocate = allocate
+unallocate = unallocate
+move cursor = move_cursor
+confirm = confirm
+cancel = cancel2
+player joining = chime1
+player drop in = silent
+player drop out = player_leaving
+switch character = silent
+approve dialogue progression = bubble_magic
+progress dialogue = plink_approve
+spinner tie break = spinner
+save = bubble_magic

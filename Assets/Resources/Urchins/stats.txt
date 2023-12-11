@@ -1,0 +1,143 @@
+STATS
+dead_kid = not yet
+bravery_votes = 0
+charm_votes = 0
+cunning_votes = 0
+spite_votes = 0
+winner = not yet
+avg_energy = 0
+
+DEFAULT PLAYER STATS
+money = 1
+energy = 1
+specialty = not yet
+num_guess = 0.0
+right_guess = 0.0
+hiding_quality = 30.0
+agro = 0.0
+
+bravery = 0.1
+charm = 0.1
+cunning = 0.1
+will = 0.1
+
+STATS VISIBLE DURING CHARACTER SELECTION
+specialty
+
+GAME STATS VISIBLE ON PAUSE SCREEN
+
+PLAYER STATS VISIBLE ON PAUSE SCREEN
+bravery (grit)
+charm
+cunning (wits)
+will
+money
+energy
+
+PLAYABLE CHARACTERS
+
+CHARACTERS
+Alonzo
+	Color = 0.7, 0.2, 0
+	Stats
+		bravery = 0.3
+		will = 0.2
+		charm = 0.2
+		specialty = Bravery
+	Entry phrase = Let's go.
+	Poses
+		normal = Alonzo
+
+Emma
+	Color = 0.9, 0.45, 0.6
+	Stats
+		cunning = 0.3
+		will = 0.2
+		charm = 0.2
+		specialty = Cunning
+	Entry phrase = There's always a way.
+	Vocal pitch = 0.9
+	Poses
+		normal = Emma
+
+Gideon
+	Color = blue
+	Stats
+		will = 0.3
+		bravery = 0.2
+		cunning = 0.2
+		specialty = Will Power
+	Entry phrase = Nobody can stop us.
+	Vocal pitch = 0.7
+	Poses
+		normal = Gideon
+
+Ruth
+	Color = green
+	Stats
+		charm = 0.3
+		bravery = 0.2
+		cunning = 0.2
+		specialty = Charm
+	Entry phrase = What's next?
+	Vocal pitch = 1.2
+	Poses
+		normal = Ruth
+
+Harland
+	Color = black
+	Vocal pitch = 1.2
+	Poses
+		normal = Harland
+		normal_L = Harland L
+
+Helen
+	Color = red
+	Vocal pitch = 0.9
+	Poses
+		normal = Helen
+		happy = Helen happy
+		happy_L = Helen happy L
+
+Hester
+	Color = 0.6, 0.5, 0.3
+	Vocal pitch = 1.1
+	Poses
+		normal = Hester
+		psy = Hester psy
+
+Josephine
+	Color = 1, 0.5, 0.2
+	Vocal pitch = 0.8
+	Poses
+		normal = Josephine
+
+Lorena
+	Color = blue
+	Vocal pitch = 1.3
+	Poses
+		normal = Lorena
+		entranced = Lorena Entranced
+Nora
+	Color = red
+	Vocal pitch = 1.4
+	Poses
+		normal = Nora
+		sad = Nora sad
+
+Rachel
+	Color = green
+	Poses
+		normal = Rachel
+
+Rufus
+	Color = gray
+	Vocal pitch = 1.2
+	Poses
+		normal = Rufus
+		
+Stephen
+	Color = yellow
+	Vocal pitch = 0.8
+	Poses
+		normal = Stephen
